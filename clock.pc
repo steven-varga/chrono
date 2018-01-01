@@ -1,0 +1,13 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${exec_prefix}/include
+
+Name: clock
+Description: C++11 template library to provide custom clocks
+URL: h5cpp.ca
+Version: 0.0.0
+Requires:
+Libs: -L{libdir} -ltz -lcurl
+Cflags: -I{includedir}/clock -std=c++11
+
