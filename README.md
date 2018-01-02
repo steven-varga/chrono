@@ -26,8 +26,8 @@ TODO:
 	address leap second treatment
  -->
 
-C++11 Chrono abstraction layer for Popular Date Time representations    {#link-chrono}
-======================================================================================
+C++11 Chrono abstraction layer for popular date-time representations  
+=====================================================================
 
 Howard Hinnan [date-time][19] header library extends [C++11 std::chrono][13] with date support and
 extensive conversion capability between [custom clocks][21] and system clocks of numeric underlying
@@ -80,9 +80,7 @@ On my system I get `typedef long int __time_t` same as [you find on  .NET][7] wi
 resolution, and epoch.
 
 
-[1]:  http://www.boost.org/doc/libs/master/doc/html/date_time/details.html#date_time.buildinfo)
-[2]:  \ref link-chrono
-[3]:  \ref link-examples-chrono
+[1]:  http://www.boost.org/doc/libs/master/doc/html/date_time/details.html#date_time.buildinfo
 [4]:  https://stat.ethz.ch/R-manual/R-devel/library/base/html/DateTimeClasses.html
 [5]:  http://gallery.rcpp.org/articles/parsing-datetimes
 [6]:  https://github.com/eddelbuettel/rcppbdt/blob/master/demo/toPOSIXct.R
@@ -102,3 +100,8 @@ resolution, and epoch.
 [20]: https://howardhinnant.github.io/date/date.html#to_stream_formatting
 [21]: https://stackoverflow.com/questions/47962806/implicit-conversion-between-c11-clocks-time-points/47963216#47963216
 
+<!--
+1. [boost::gregorian](http://www.boost.org/doc/libs/1_65_1/doc/html/date_time/gregorian.html), [boost::posix_time](http://www.boost.org/doc/libs/1_65_1/doc/html/date_time/posix_time.html) support [in progress]
+
+
+-->
