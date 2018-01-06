@@ -1,4 +1,4 @@
-<!---
+<!--
 
  Copyright (c) 2017 vargaconsulting, Toronto,ON Canada
  Author: Varga, Steven <steven@vargaconsulting.ca>
@@ -19,40 +19,39 @@
  COPYRIGHT HOLDERS BE LIABLE FOR ANY  CLAIM,  DAMAGES OR OTHER LIABILITY, WHETHER
  IN  AN  ACTION  OF  CONTRACT, TORT OR  OTHERWISE, ARISING  FROM,  OUT  OF  OR IN
  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
---->
+-->
 
 <!--
 TODO:
 	address leap second treatment
  -->
 
-C++11 Chrono abstraction layer for popular date-time representations  
-=====================================================================
+This header only library is build on top of Howard Hinnan's [date-time][19] templates, wraps
+the underlying representation and provides  conversion between `std::chrono::system_clock` and R/.NET/Windows clocks.
 
-Howard Hinnan [date-time][19] header library extends [C++11 std::chrono][13] with date support and
-extensive conversion capability between [custom clocks][21] and system clocks of numeric underlying
-datatype.  The library provides the familiar [formatting][20] parameters, and parses the entire time
-zone database without error.  This header only library is build on [date-time][19] templates, wraps
-the respective data-formats and provide easy conversions between commonly used time formats.
-
-List of Clocks: RClock, NETClock, IntraDayClock
+Concepts:
+----------
+[Epoch][9] is the reference point time is counted from. The actual value  is the 
+**representation**, and the resolution or the smallest tick of the clock is the [period][23]. Time is measured 
+in [duration][22] and may or may not be tied to an **epoch**. The **epoch**, **duration**, **period** and **representation**
+define a **clock**. Clock tells the current time: `SomeClock<std::chrono::milliseconds>::now()` and may provide means of
+conversion to other clocks. Provided the right conversion one can tap into Howard Hinnan's calandar and time-zone parsing/printing
+library: [date-time][19]. The conversion is either automatic, or manual: `date::clock_cast<other_clock>()`.
 
 [R POSIXct][6]
---------------
-internally uses  [IEEE 754][8] double precision float. This format allows
-representing missing values as `NA`-s as well provide sub-second resolution and direction
-from epoch using the sign bit. The format is convenient  as you can store date-time
-in a matrix next to other numeric features and call your  BLAS/LAPACK operation.  The
-downside is only 52 bit is used to represent time,  the [roundoff error][11] inherent in floats
-[cause arguments][10] as well the epoch which maybe tied to [unix epoch][9]. Dirk Eddelbuettel's [article][12] and
-implementation shows insight how R represents date-time in posix format.
+---------------
+internally uses  [IEEE 754][8] double precision float, storing fractional seconds in mantissa. This format allows missing values 
+as [NAN][24]-s , and to define arbitrary **epoch** called [origin][4].  The [roundoff error][11] inherent in floats [discussed on stack overflow][10].
 
 Here are the planned templates to represent POSIXct type with C++11 chrono compatible templates:
-``` cpp
-	using RClock = chrono::Clock< date::year{1980}/date::month{1}/date::day{1},      // epoch
-									std::chrono::duration<double,std::ratio<1,1>> >; // representation and resolution
+
+```cpp
+using RClock = chrono::Clock< date::year{1970}/date::month{1}/date::day{1}, 	// epoch
+				std::chrono::duration<double,std::ratio<1>> >;  				// representation and resolution
 ```
+
 Use `<date/tz.h>` IO formatting function:
+
 ```cpp
 	std::cout 
 	<< RClock::now()            
@@ -79,6 +78,8 @@ echo | gcc -E -xc -include 'time.h' - | grep time_t
 On my system I get `typedef long int __time_t` same as [you find on  .NET][7] with the difference in
 resolution, and epoch.
 
+[BOOST Time][25]
+
 
 [1]:  http://www.boost.org/doc/libs/master/doc/html/date_time/details.html#date_time.buildinfo
 [4]:  https://stat.ethz.ch/R-manual/R-devel/library/base/html/DateTimeClasses.html
@@ -99,7 +100,10 @@ resolution, and epoch.
 [19]: https://github.com/HowardHinnant/date
 [20]: https://howardhinnant.github.io/date/date.html#to_stream_formatting
 [21]: https://stackoverflow.com/questions/47962806/implicit-conversion-between-c11-clocks-time-points/47963216#47963216
-
+[22]: http://naipc.uchicago.edu/2015/ref/cppreference/en/cpp/chrono/duration.html
+[23]: http://naipc.uchicago.edu/2015/ref/cppreference/en/cpp/numeric/ratio/ratio.html
+[24]: http://en.cppreference.com/w/cpp/types/numeric_limits/quiet_NaN
+[25]: http://www.boost.org/doc/libs/1_62_0/doc/html/date_time.html
 <!--
 1. [boost::gregorian](http://www.boost.org/doc/libs/1_65_1/doc/html/date_time/gregorian.html), [boost::posix_time](http://www.boost.org/doc/libs/1_65_1/doc/html/date_time/posix_time.html) support [in progress]
 

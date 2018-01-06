@@ -10,7 +10,7 @@
 
 PREFIX = /usr/local
 
-DIRS =  tests profiling examples doxy
+DIRS =  tests examples doxy
 
 BUILDDIRS = $(DIRS:%=build-%)
 CLEANDIRS = $(DIRS:%=clean-%)
