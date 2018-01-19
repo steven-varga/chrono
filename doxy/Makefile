@@ -25,7 +25,8 @@ test:
 
 upload:
 	rsync -avz --delete ../docs/html/ osaka.vargaconsulting.ca:clock
-
+view:
+	xdg-open ../docs/html/index.html
 clean:
 	$(RM) -rf ../docs/html
 

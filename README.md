@@ -36,7 +36,7 @@ Concepts:
 in [duration][22] and may or may not be tied to an **epoch**. The **epoch**, **duration**, **period** and **representation**
 define a **clock**. Clock tells the current time: `SomeClock<std::chrono::milliseconds>::now()` and may provide means of
 conversion to other clocks. Provided the right conversion one can tap into Howard Hinnan's calandar and time-zone parsing/printing
-library: [date-time][19]. The conversion is either automatic, or manual: `date::clock_cast<other_clock>()`.
+library: [date-time][19]. This library provides conversions between `std::chrono::system_clock` and R/.NET/Windows clocks.
 
 [R POSIXct][6]
 ---------------
@@ -80,6 +80,11 @@ resolution, and epoch.
 
 [BOOST Time][25]
 
+
+TODO:
+-----
+* research date-time representations
+* should boost to [date.h][19] conversions be supplied
 
 [1]:  http://www.boost.org/doc/libs/master/doc/html/date_time/details.html#date_time.buildinfo
 [4]:  https://stat.ethz.ch/R-manual/R-devel/library/base/html/DateTimeClasses.html
