@@ -18,21 +18,27 @@
 # IN  AN  ACTION  OF  CONTRACT, TORT OR  OTHERWISE, ARISING  FROM,  OUT  OF  OR IN
 # CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-apps = 
+apps = conversion
 
-CXX = g++
-CXXFLAGS = -I../ -std=c++14
-	LIBS =  -lprofiler -lglog -ltz -lcurl
+CXX = c++
+CXXFLAGS = -I.. -std=c++14
+LIBS =  -lprofiler -lglog -ltz -lcurl
 
 %.o : $(SRC_DIR)/%.cpp 
 	$(CXX) -$(INCLUDES) -o $@  $(CPPFLAGS) $(CXXFLAGS) -c $^
 
 all: $(apps)
 
+conversion: conversion.o
+	$(CXX) $^ $(LIBS) -o $@	
+
 test: $(apps)
+	@./conversion
+
+
 
 clean:
-	@$(RM) *.o *.prof  $(apps)
+	@$(RM) *.o *.prof *.h5 $(apps)
 
 .PHONY: test
 
