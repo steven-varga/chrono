@@ -18,7 +18,7 @@
 # IN  AN  ACTION  OF  CONTRACT, TORT OR  OTHERWISE, ARISING  FROM,  OUT  OF  OR IN
 # CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-apps = conversion
+apps = rclock
 
 CXX = c++
 CXXFLAGS = -I.. -std=c++14
@@ -29,11 +29,11 @@ LIBS =  -lprofiler -lglog -ltz -lcurl
 
 all: $(apps)
 
-conversion: conversion.o
+rclock: rclock.o
 	$(CXX) $^ $(LIBS) -o $@	
 
 test: $(apps)
-	@./conversion
+	@./$(apps)
 
 
 
